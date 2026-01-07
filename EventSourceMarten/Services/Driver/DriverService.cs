@@ -50,7 +50,9 @@ public class DriverService(IDocumentSession session): IDriverService
                                     Id = driver.Id,
                                     Name = driver.Name,
                                     LicenseNumber = existingDriver.LicenseNumber,
-                                    UpdatedAt = driver.UpdatedAt
+                                    UpdatedAt = driver.UpdatedAt,
+                                    GeoLat = existingDriver.GeoLat,
+                                    GeoLon = existingDriver.GeoLon
                                 });
         }
         else if (!String.Equals(existingDriver.LicenseNumber,
@@ -61,7 +63,21 @@ public class DriverService(IDocumentSession session): IDriverService
                                                 Id = driver.Id,
                                                 LicenseNumber = driver.LicenseNumber,
                                                 Name = existingDriver.Name,
-                                                UpdatedAt = driver.UpdatedAt
+                                                UpdatedAt = driver.UpdatedAt,
+                                                GeoLat = existingDriver.GeoLat,
+                                                GeoLon = existingDriver.GeoLon
+                                            });
+        }
+        else if (existingDriver.GeoLat != driver.GeoLat 
+              || existingDriver.GeoLon != driver.GeoLon) {
+            session.Events.Append(driver.Id,
+                new ChageGeoLocationDiver {
+                                                Id = driver.Id,
+                                                LicenseNumber = driver.LicenseNumber,
+                                                Name = existingDriver.Name,
+                                                UpdatedAt = driver.UpdatedAt,
+                                                GeoLat = driver.GeoLat,
+                                                GeoLon = driver.GeoLon
                                             });
         }
 

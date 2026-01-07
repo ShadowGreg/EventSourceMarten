@@ -18,6 +18,8 @@ public static class MartenSchemaConfig
             .Duplicate(x => x.LicenseNumber)
             .Duplicate(x => x.UpdatedAt)
             .Duplicate(x => x.IsDeleted)
+            .Duplicate(x => x.GeoLat)
+            .Duplicate(x => x.GeoLon)
             ;
     }
 }

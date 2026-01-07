@@ -11,7 +11,7 @@ public class DriverHistoryProjection: EventProjection
                                                 Id = Guid.NewGuid(),
                                                 DriverId = e.Id,
                                                 At = e.UpdatedAt,
-                                                MessageRu = $"Создан водитель. Имя: {e.Name}, права: {e.LicenseNumber}"
+                                                MessageRu = $"Создан водитель. Имя: {e.Name}, права: {e.LicenseNumber}, координаты: {e.GeoLat}, {e.GeoLon}"
                                             }));
 
         Project<RenameDiver>((e, ops) =>
@@ -28,6 +28,14 @@ public class DriverHistoryProjection: EventProjection
                                                 DriverId = e.Id,
                                                 At = e.UpdatedAt,
                                                 MessageRu = $"Изменён номер прав на: {e.LicenseNumber}"
+                                            }));
+        
+        Project<ChageGeoLocationDiver>((e, ops) =>
+            ops.Store(new DriverHistoryItem {
+                                                Id = Guid.NewGuid(),
+                                                DriverId = e.Id,
+                                                At = e.UpdatedAt,
+                                                MessageRu = $"Изменены координаты водителя на: {e.GeoLat}, {e.GeoLon}"
                                             }));
 
         Project<DeleteDiver>((e, ops) =>

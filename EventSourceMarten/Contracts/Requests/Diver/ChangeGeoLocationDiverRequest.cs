@@ -1,9 +1,7 @@
 using EventSourceMarten.DTO;
 
 namespace EventSourceMarten.Contracts.Requests.Diver;
-public record CreateDiverRequest
+public record ChangeGeoLocationDiverRequest
 {
-    public required string Name { get; init; } 
-    public required string LicenseNumber { get; init; }
     public required GeoPointDto Location { get; init; }
 }

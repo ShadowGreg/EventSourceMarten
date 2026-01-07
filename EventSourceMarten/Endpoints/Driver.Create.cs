@@ -1,7 +1,9 @@
 using EventSourceMarten.Contracts.Requests.Diver;
+using EventSourceMarten.DTO;
 using EventSourceMarten.Mapping;
 using EventSourceMarten.Services.Driver;
 using FastEndpoints;
+using Microsoft.CodeAnalysis;
 
 namespace EventSourceMarten.Endpoints;
 public class DriverCreateEndpoint: Endpoint<CreateDiverRequest, Guid>
@@ -16,7 +18,7 @@ public class DriverCreateEndpoint: Endpoint<CreateDiverRequest, Guid>
         var driver = req.ToDriver();
         driver.Id = Guid.NewGuid();
 
-       var driverId = await _driverService.CreateAsync(driver, ct: ct);
+        var driverId = await _driverService.CreateAsync(driver, ct: ct);
 
         await Send.OkAsync(
             driverId,
@@ -36,11 +38,13 @@ public class DriverCreateEndpoint: Endpoint<CreateDiverRequest, Guid>
                     "- 200: создан, возвращён Id\n" +
                     "- 400: некорректные данные запроса\n" +
                     "- 500: внутренняя ошибка сервера";
-                s.ExampleRequest = new CreateDiverRequest
-                                   {
-                                       Name = "Иван Иванов",
-                                       LicenseNumber = "AB123456"
-                                   };
+                s.ExampleRequest = new CreateDiverRequest {
+                                                              Name = "Иван Иванов",
+                                                              LicenseNumber = "AB123456",
+                                                              Location = new GeoPointDto {
+                                                                             Lat = 55.7558, Lon = 37.6173
+                                                                         }
+                                                          };
             });
 
         Description(b => b

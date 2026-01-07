@@ -1,6 +1,3 @@
-using EventSourceMarten.Contracts.Aggregates;
-using EventSourceMarten.Contracts.Aggregates.Diver;
-
 namespace EventSourceMarten.Entities;
 public class Driver
 {
@@ -8,8 +5,8 @@ public class Driver
     public string Name { get; set; } = null!;
     public string LicenseNumber { get; set; } = null!;
     public bool IsDeleted { get; set; } = false;
-
     public DateTimeOffset UpdatedAt { get; set; } = DateTime.UtcNow;
-
+    public double? GeoLat { get; set; }
+    public double? GeoLon { get; set; }
     public Driver() { }
 }

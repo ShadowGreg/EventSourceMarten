@@ -5,5 +5,8 @@ public class Base
     
     public bool IsDeleted { get; set; } = false;
     
+    public double? GeoLat { get; set; }
+    public double? GeoLon { get; set; } 
+    
     public DateTimeOffset UpdatedAt { get; set; } = DateTime.UtcNow;
 }
