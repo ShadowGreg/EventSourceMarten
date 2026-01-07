@@ -1,0 +1,41 @@
+@EventSourceMarten_HostAddress = http://localhost:5099
+
+### 1) Создать водителя (POST /drivers) -> Guid
+POST {{EventSourceMarten_HostAddress}}/drivers
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Иван Иванов",
+  "licenseNumber": "AB123456"
+}
+
+### 2) Переименовать водителя (PUT /drivers/rename) -> DiverResponse
+# Вставь сюда id из ответа метода создания
+PUT {{EventSourceMarten_HostAddress}}/drivers/rename
+Content-Type: application/json
+Accept: application/json
+
+{
+  "id": "0864f543-2bba-46fb-94e3-43d6c1793bb0",
+  "name": "Иван Петров"
+}
+
+### 3) Изменить номер прав (PUT /drivers/chage-license-number) -> DiverResponse
+# Вставь сюда тот же id
+PUT {{EventSourceMarten_HostAddress}}/drivers/chage-license-number
+Content-Type: application/json
+Accept: application/json
+
+{
+  "id": "0864f543-2bba-46fb-94e3-43d6c1793bb0",
+  "licenseNumber": "CD987654"
+}
+
+### 4) Удалить водителя (DELETE /drivers) body: Guid -> bool
+# В swagger у тебя Guid идёт В ТЕЛЕ запроса, поэтому отправляем JSON-строкой (это валидный JSON)
+DELETE {{EventSourceMarten_HostAddress}}/drivers
+Content-Type: application/json
+Accept: application/json
+
+"0864f543-2bba-46fb-94e3-43d6c1793bb0"
